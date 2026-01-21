@@ -32,6 +32,24 @@
 | BM25 | k1, b パラメータの役割 | BM25チューニングに仮説が持てる |
 | スコア正規化 | Min-Max, Z-score, RRF | ハイブリッド検索のスコア融合を設計できる |
 
+**TF-IDFの基本（数式と例）**
+- 定義
+  - TF(t, d) = f(t, d)（文書d内で単語tが出現した回数）
+  - IDF(t) = log(N / df(t))（Nは文書数、df(t)は単語tが出現した文書数）
+  - TF-IDF(t, d) = TF(t, d) × IDF(t)
+- 直感
+  - よく出る単語（高TF）はその文書の特徴になりやすい
+  - どの文書にも出る単語（高df）は区別に役立ちにくいので重みを下げる
+- 簡単な例（N = 3）
+  - D1: "cat sat on mat"
+  - D2: "dog sat on log"
+  - D3: "cat chased mouse"
+  - 単語 t = "cat" の df(t) = 2 → IDF(t) = log(3/2) ≈ 0.405
+  - TF(t, D1) = 1, TF(t, D2) = 0, TF(t, D3) = 1
+  - TF-IDF(t, D1) = 1 × 0.405 = 0.405
+  - TF-IDF(t, D2) = 0 × 0.405 = 0
+  - TF-IDF(t, D3) = 1 × 0.405 = 0.405
+
 **リソース**
 - Introduction to Information Retrieval (Manning et al.) Chapter 6
   - https://nlp.stanford.edu/IR-book/
